@@ -4,8 +4,17 @@ import pandas as pd
 import numpy as np
 from io import StringIO
 from datetime import datetime
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite solicitudes desde cualquier origen
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos
+    allow_headers=["*"],  # Permite todos los headers
+)
+
 
 # Definir el endpoint
 @app.get("/obtener_datos_firms/")
