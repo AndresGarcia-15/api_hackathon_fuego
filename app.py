@@ -9,15 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from datetime import datetime, timedelta
 app = FastAPI()
-origins = ["http://localhost:5173"]  
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Actualiza esto con los orígenes permitidos en producción
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 # Definir el endpoint
 @app.get("/obtener_datos_firms/")
 def obtener_datos_firms(
