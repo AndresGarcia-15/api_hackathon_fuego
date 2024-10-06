@@ -1,13 +1,10 @@
-
 from fastapi import FastAPI, Query
 import requests
 import pandas as pd
 import numpy as np
 from io import StringIO
-from fastapi.responses import Response
-from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
 
-from datetime import datetime, timedelta
 app = FastAPI()
 
 # Definir el endpoint
@@ -73,42 +70,12 @@ def obtener_datos_firms(
         # Aplicar el proceso de eliminación de duplicados para cada combinación de fecha y tiempo
         df_final = df.groupby(['acq_date', 'acq_time']).apply(eliminar_duplicados_por_fecha_y_tiempo).reset_index(drop=True)
 
-        # Crear la colección de características GeoJSON
-        geojson = {
-            "type": "FeatureCollection",
-            "features": []
-        }
-
-        for _, row in df_final.iterrows():
-            feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [row['longitude'], row['latitude']]
-                },
-                "properties": {
-                    "country_id": row['country_id'],
-                    "bright_ti4": row['bright_ti4'],
-                    "scan": row['scan'],
-                    "track": row['track'],
-                    "acq_date": row['acq_date'],
-                    "acq_time": row['acq_time'],
-                    "satellite": row['satellite'],
-                    "instrument": row['instrument'],
-                    "confidence": row['confidence'],
-                    "version": row['version'],
-                    "bright_ti5": row['bright_ti5'],
-                    "frp": row['frp'],
-                    "daynight": row['daynight']
-                }
-            }
-            geojson["features"].append(feature)
-
-        # Retornar el GeoJSON
-        return geojson
+        # Retornar los datos finales
+        return df_final.to_dict(orient="records")
 
     else:
         return {"error": "No se pudo obtener los datos desde la API."}
+
 # Definir la API Key de OpenWeatherMap
 API_KEY = "e07702c7e527cafdc7e1e338dfa9a664"
 
