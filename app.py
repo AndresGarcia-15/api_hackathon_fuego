@@ -5,6 +5,7 @@ import numpy as np
 from io import StringIO
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
 
 app.add_middleware(
@@ -18,7 +19,7 @@ app.add_middleware(
 
 # Definir el endpoint
 @app.get("/obtener_datos_firms/")
-def obtener_datos_firms(
+async def obtener_datos_firms(
     country: str = Query(...),
     start_date: str = Query(...),
     end_date: str = Query(...)
@@ -121,7 +122,7 @@ def calcular_promedio_componentes(datos):
     return promedio
 
 @app.get("/calidad_aire/historico/")
-def calidad_aire_historico(lat: float = Query(...), lon: float = Query(...), 
+async def calidad_aire_historico(lat: float = Query(...), lon: float = Query(...), 
                             fecha_inicio: str = Query(...), fecha_fin: str = Query(...)):
     """
     Este servicio obtiene los datos históricos de calidad del aire para una ubicación específica en un rango de fechas.
@@ -157,7 +158,7 @@ def calidad_aire_historico(lat: float = Query(...), lon: float = Query(...),
     
 
 @app.get("/obtener_imagenes/")
-def obtener_imagenes(
+async def obtener_imagenes(
     lat: float = Query(..., description="Latitud (-90 a 90)"),
     lon: float = Query(..., description="Longitud (-180 a 180)"),
     fecha: str = Query(..., description="Fecha en formato YYYY-MM-DD")
