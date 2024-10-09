@@ -3,8 +3,9 @@ import requests
 import pandas as pd
 import numpy as np
 from io import StringIO
-from datetime import datetime, timedelta
+from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import timedelta
 
 
 app = FastAPI()
