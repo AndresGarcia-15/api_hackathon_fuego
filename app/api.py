@@ -45,7 +45,7 @@ async def obtener_datos_firms(
         return {"error": "El rango de fechas no puede exceder los 10 días."}
 
     # URL para descargar los datos de FIRMS en formato CSV para el rango de fechas
-    api_key = "7d41d47b3c83b87d4753af72e55eae00"
+    api_key = "0c6bb2f5ceedb60877fe005d9d730a87"
     url = f"https://firms.modaps.eosdis.nasa.gov/api/country/csv/{api_key}/VIIRS_NOAA20_NRT/{country}/{delta_dias}/{start_date}"
 
     # Hacer la solicitud para obtener los datos
@@ -89,7 +89,7 @@ async def obtener_datos_firms(
         return {"error": "No se pudo obtener los datos desde la API."}
 
 # Definir la API Key de OpenWeatherMap
-API_KEY = "e07702c7e527cafdc7e1e338dfa9a664"
+API_KEY = "c75170700852ab283993246f0b1aac41"
 
 def obtener_datos_calidad_aire_historico(lat, lon, start, end):
     """
